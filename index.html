@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>webserver</title>
-</head>
-<body>
-    <h1>this is webserver written in javascript</h1>
-    
-    <script src="index.js"></script>
-</body>
+  </head>
+  <body>
+    <h1>this is webserver</h1>
+    <input type="text" name="message" id="inputBox" />
+    <button id="sendBtn">Click Me!!</button>
+
+    <script>
+      document.getElementById("sendBtn").addEventListener("click", () => {
+        let data = document.getElementById("inputBox").value;
+        console.log(data);
+        fetch("/data", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message: data }),
+        })
+          .then((response) => {
+            console.log(response);
+            console.log("Message sent to server");
+          })
+          .catch((error) => {
+            console.error("Error sending message to server:", error);
+          });
+      });
+    </script>
+  </body>
 </html>
